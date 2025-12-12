@@ -55,10 +55,13 @@ class DeliveryController extends Controller
 
         if ($success) {
             return redirect()->route('leveranciers.products', $leverancier_id)
-                ->with('success', 'Delivery added successfully');
+                ->with('success', 'Zending succesvol toegevoegd');
         } else {
-            return redirect()->route('leveranciers.products', $leverancier_id)
-                ->with('error', $message)->with('show_error', true);
+            // Return to delivery form with error, but with redirect after 4 seconds
+            return view('deliveries.error', [
+                'message' => $message,
+                'leverancier_id' => $leverancier_id
+            ]);
         }
     }
 }
