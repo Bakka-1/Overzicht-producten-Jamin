@@ -28,8 +28,8 @@ class LeverancierController extends Controller
         }
 
         // Get product count
-        $result = DB::select('CALL sp_GetProductCountByLeverancier(?)', [$id]);
-        $productCount = $result[0]->p_Count ?? 0;
+        $result = DB::select('CALL sp_GetProductCountByLeverancier(?, @p_Count)', [$id]);
+        $productCount = DB::select('SELECT @p_Count as p_Count')[0]->p_Count ?? 0;
 
         if ($productCount == 0) {
             // No products - show empty message

@@ -1,3 +1,12 @@
+-- Drop existing database if it exists
+DROP DATABASE IF EXISTS laravel;
+
+-- Create new database
+CREATE DATABASE laravel;
+
+-- Use the database
+USE laravel;
+
 -- Create Leverancier Table
 CREATE TABLE IF NOT EXISTS Leverancier (
     Id INT PRIMARY KEY AUTO_INCREMENT,

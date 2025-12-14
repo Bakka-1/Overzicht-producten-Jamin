@@ -32,7 +32,8 @@ class DeliveryController extends Controller
         $validated = $request->validate([
             'leverancier_id' => 'required|integer|exists:Leverancier,Id',
             'product_id' => 'required|integer|exists:Product,Id',
-            'aantal_producteenheden' => 'required|integer|min:1',
+            // Prevent oversized integers that overflow MySQL INT (max ~2.1B)
+            'aantal_producteenheden' => 'required|integer|min:1|max:2000000000',
             'datum_eerstvolgende_levering' => 'required|date'
         ]);
 

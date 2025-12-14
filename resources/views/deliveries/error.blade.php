@@ -19,13 +19,9 @@
     </div>
 </div>
 
-@section('scripts')
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        setTimeout(function() {
-            window.location.href = "{{ route('leveranciers.products', $leverancier_id) }}";
-        }, 4000);
-    });
+    setTimeout(function() {
+        window.location.href = "{{ route('leveranciers.products', $leverancier_id) }}";
+    }, 4000);
 </script>
-@endsection
 @endsection

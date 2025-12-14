@@ -25,6 +25,7 @@
                                     <th>Barcode</th>
                                     <th>Aantal in Magazijn</th>
                                     <th>Laatste Levering</th>
+                                    <th>Eerstvolgende Levering</th>
                                     <th>Acties</th>
                                 </tr>
                             </thead>
@@ -37,6 +38,7 @@
                                             <span class="badge bg-success">{{ $product->AantalAanwezig ?? 0 }}</span>
                                         </td>
                                         <td>{{ $product->LaatsteAanlevering ? \Carbon\Carbon::parse($product->LaatsteAanlevering)->format('d-m-Y') : 'N/A' }}</td>
+                                        <td>{{ $product->EerstvolgendeLevering ? \Carbon\Carbon::parse($product->EerstvolgendeLevering)->format('d-m-Y') : 'N/A' }}</td>
                                         <td>
                                             <a href="{{ route('deliveries.create', ['leverancier_id' => $leverancier->Id, 'product_id' => $product->ProductId]) }}" 
                                                class="btn btn-sm btn-outline-success" title="Nieuwe levering">

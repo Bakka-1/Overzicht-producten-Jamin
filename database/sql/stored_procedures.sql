@@ -29,12 +29,12 @@ BEGIN
         p.Naam,
         p.Barcode,
         m.AantalAanwezig,
-        MAX(ppl.DatumLevering) AS LaatsteAanlevering
+        MAX(ppl.DatumLevering) AS LaatsteAanlevering,
+        MAX(ppl.DatumEerstVolgendeLevering) AS EerstvolgendeLevering
     FROM ProductPerLeverancier ppl
     JOIN Product p ON ppl.ProductId = p.Id
     LEFT JOIN Magazijn m ON p.Id = m.ProductId
     WHERE ppl.LeverancierId = p_LeverancierId
-    AND p.IsActief = 1
     GROUP BY ppl.Id, p.Id, p.Naam, p.Barcode, m.AantalAanwezig
     ORDER BY m.AantalAanwezig DESC;
 END$$
@@ -91,8 +91,7 @@ BEGIN
     SELECT COUNT(DISTINCT ppl.ProductId) INTO p_Count
     FROM ProductPerLeverancier ppl
     JOIN Product p ON ppl.ProductId = p.Id
-    WHERE ppl.LeverancierId = p_LeverancierId
-    AND p.IsActief = 1;
+    WHERE ppl.LeverancierId = p_LeverancierId;
 END$$
 DELIMITER ;
 
