@@ -7,18 +7,12 @@ use Illuminate\Support\Facades\DB;
 
 class LeverancierController extends Controller
 {
-    /**
-     * Show all leveranciers with product count
-     */
     public function index()
     {
         $leveranciers = Leverancier::getLeveranciersWithProductCount();
         return view('leveranciers.index', compact('leveranciers'));
     }
 
-    /**
-     * Show products from a specific leverancier
-     */
     public function showProducts($id)
     {
         $leverancier = Leverancier::getLeverancierById($id);
@@ -32,11 +26,9 @@ class LeverancierController extends Controller
         $productCount = DB::select('SELECT @p_Count as p_Count')[0]->p_Count ?? 0;
 
         if ($productCount == 0) {
-            // No products - show empty message
             return view('leveranciers.no-products', compact('leverancier'));
         }
 
-        // Get products
         $products = DB::select('CALL sp_GetProductsByLeverancier(?)', [$id]);
         return view('leveranciers.products', compact('leverancier', 'products'));
     }

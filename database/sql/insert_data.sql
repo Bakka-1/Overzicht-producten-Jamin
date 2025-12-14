@@ -1,4 +1,3 @@
--- Insert Allergenen
 INSERT INTO Allergeen (Naam, Omschrijving) VALUES
 ('Gluten', 'Dit product bevat gluten'),
 ('Gelatine', 'Dit product bevat gelatine'),
@@ -6,7 +5,6 @@ INSERT INTO Allergeen (Naam, Omschrijving) VALUES
 ('Lactose', 'Dit product bevat lactose'),
 ('Soja', 'Dit product bevat soja');
 
--- Insert Producten
 INSERT INTO Product (Naam, Barcode) VALUES
 ('Mintnopjes', '8719587231278'),
 ('Schoolkrijt', '8719587326713'),
@@ -22,7 +20,6 @@ INSERT INTO Product (Naam, Barcode) VALUES
 ('Kruis Drop', '8719587322265'),
 ('Zoute Ruitjes', '8719587323256');
 
--- Insert Leveranciers
 INSERT INTO Leverancier (Naam, ContactPersoon, LeverancierNummer, Mobiel) VALUES
 ('Venco', 'Bert van Linge', 'L1029384719', '06-28493827'),
 ('Astra Sweets', 'Jasper del Monte', 'L1029284315', '06-39398734'),
@@ -31,7 +28,6 @@ INSERT INTO Leverancier (Naam, ContactPersoon, LeverancierNummer, Mobiel) VALUES
 ('De Bron', 'Remco Veenstra', 'L1023857736', '06-34291234'),
 ('Quality Street', 'Johan Nooij', 'L1029234586', '06-23458456');
 
--- Insert Magazijn records
 INSERT INTO Magazijn (ProductId, VerpakkingsEenheid, AantalAanwezig) VALUES
 (1, 5, 453),
 (2, 2.5, 400),
@@ -47,7 +43,6 @@ INSERT INTO Magazijn (ProductId, VerpakkingsEenheid, AantalAanwezig) VALUES
 (12, 1, 467),
 (13, 5, 20);
 
--- Insert ProductPerAllergeen records
 INSERT INTO ProductPerAllergeen (ProductId, AllergeenId) VALUES
 (1, 2), (1, 1), (1, 3),
 (3, 4),
@@ -57,7 +52,6 @@ INSERT INTO ProductPerAllergeen (ProductId, AllergeenId) VALUES
 (12, 4),
 (13, 1), (13, 4), (13, 5);
 
--- Insert ProductPerLeverancier records
 INSERT INTO ProductPerLeverancier (LeverancierId, ProductId, DatumLevering, Aantal, DatumEerstVolgendeLevering) VALUES
 (1, 1, '2024-11-09', 23, '2024-11-16'),
 (1, 1, '2024-11-18', 21, '2024-11-25'),
@@ -77,5 +71,4 @@ INSERT INTO ProductPerLeverancier (LeverancierId, ProductId, DatumLevering, Aant
 (5, 12, '2024-11-11', 45, NULL),
 (5, 13, '2024-11-12', 23, NULL);
 
--- Update Product 10 (Winegums) to IsActief = 0 for scenario 2
 UPDATE Product SET IsActief = 0 WHERE Id = 10;

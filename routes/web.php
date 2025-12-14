@@ -14,12 +14,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-// Leverancier Routes (requires authentication)
 Route::middleware('auth')->group(function () {
     Route::get('/leveranciers', [LeverancierController::class, 'index'])->name('leveranciers.index');
     Route::get('/leveranciers/{id}/products', [LeverancierController::class, 'showProducts'])->name('leveranciers.products');
     
-    // Delivery Routes
     Route::get('/deliveries/create/{leverancier_id}/{product_id}', [DeliveryController::class, 'create'])->name('deliveries.create');
     Route::post('/deliveries', [DeliveryController::class, 'store'])->name('deliveries.store');
 });

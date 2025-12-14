@@ -1,13 +1,9 @@
--- Drop existing database if it exists
 DROP DATABASE IF EXISTS laravel;
 
--- Create new database
 CREATE DATABASE laravel;
 
--- Use the database
 USE laravel;
 
--- Create Leverancier Table
 CREATE TABLE IF NOT EXISTS Leverancier (
     Id INT PRIMARY KEY AUTO_INCREMENT,
     Naam VARCHAR(100) NOT NULL,
@@ -20,7 +16,6 @@ CREATE TABLE IF NOT EXISTS Leverancier (
     DatumGewijzigd DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)
 );
 
--- Create Allergeen Table
 CREATE TABLE IF NOT EXISTS Allergeen (
     Id INT PRIMARY KEY AUTO_INCREMENT,
     Naam VARCHAR(100) NOT NULL,
@@ -31,7 +26,6 @@ CREATE TABLE IF NOT EXISTS Allergeen (
     DatumGewijzigd DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)
 );
 
--- Create Product Table
 CREATE TABLE IF NOT EXISTS Product (
     Id INT PRIMARY KEY AUTO_INCREMENT,
     Naam VARCHAR(100) NOT NULL,
@@ -42,7 +36,6 @@ CREATE TABLE IF NOT EXISTS Product (
     DatumGewijzigd DATETIME(6) NOT NULL DEFAULT CURRENT_TIMESTAMP(6) ON UPDATE CURRENT_TIMESTAMP(6)
 );
 
--- Create Magazijn Table
 CREATE TABLE IF NOT EXISTS Magazijn (
     Id INT PRIMARY KEY AUTO_INCREMENT,
     ProductId INT NOT NULL,
@@ -55,7 +48,6 @@ CREATE TABLE IF NOT EXISTS Magazijn (
     FOREIGN KEY (ProductId) REFERENCES Product(Id) ON DELETE CASCADE
 );
 
--- Create ProductPerAllergeen Table
 CREATE TABLE IF NOT EXISTS ProductPerAllergeen (
     Id INT PRIMARY KEY AUTO_INCREMENT,
     ProductId INT NOT NULL,
@@ -68,7 +60,6 @@ CREATE TABLE IF NOT EXISTS ProductPerAllergeen (
     FOREIGN KEY (AllergeenId) REFERENCES Allergeen(Id) ON DELETE CASCADE
 );
 
--- Create ProductPerLeverancier Table
 CREATE TABLE IF NOT EXISTS ProductPerLeverancier (
     Id INT PRIMARY KEY AUTO_INCREMENT,
     LeverancierId INT NOT NULL,
@@ -84,7 +75,6 @@ CREATE TABLE IF NOT EXISTS ProductPerLeverancier (
     FOREIGN KEY (ProductId) REFERENCES Product(Id) ON DELETE CASCADE
 );
 
--- Create Indexes for better performance
 CREATE INDEX idx_Magazijn_ProductId ON Magazijn(ProductId);
 CREATE INDEX idx_ProductPerAllergeen_ProductId ON ProductPerAllergeen(ProductId);
 CREATE INDEX idx_ProductPerAllergeen_AllergeenId ON ProductPerAllergeen(AllergeenId);

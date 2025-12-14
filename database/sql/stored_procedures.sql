@@ -1,6 +1,3 @@
--- Stored Procedures for Jamin Application
-
--- SP 1: Get all Leveranciers with count of unique products
 DELIMITER $$
 CREATE PROCEDURE sp_GetLeveranciersWithProductCount()
 BEGIN
@@ -19,7 +16,6 @@ BEGIN
 END$$
 DELIMITER ;
 
--- SP 2: Get products delivered by a specific supplier
 DELIMITER $$
 CREATE PROCEDURE sp_GetProductsByLeverancier(IN p_LeverancierId INT)
 BEGIN
@@ -40,7 +36,6 @@ BEGIN
 END$$
 DELIMITER ;
 
--- SP 3: Add new delivery and update magazine stock
 DELIMITER $$
 CREATE PROCEDURE sp_AddDeliveryAndUpdateStock(
     IN p_LeverancierId INT,
@@ -57,23 +52,19 @@ BEGIN
         SET p_Message = 'Database error occurred';
     END;
 
-    -- Check if product is active
     IF (SELECT IsActief FROM Product WHERE Id = p_ProductId) = 0 THEN
         SET p_Success = 0;
         SET p_Message = CONCAT('Het product ', (SELECT Naam FROM Product WHERE Id = p_ProductId), 
                               ' van de leverancier ', (SELECT Naam FROM Leverancier WHERE Id = p_LeverancierId),
                               ' wordt niet meer geproduceerd');
     ELSE
-        -- Insert new delivery record
         INSERT INTO ProductPerLeverancier (LeverancierId, ProductId, DatumLevering, Aantal, DatumEerstVolgendeLevering)
         VALUES (p_LeverancierId, p_ProductId, CURDATE(), p_AantalProducteenheden, p_DatumEerstVolgendeLevering);
         
-        -- Update magazine stock
         UPDATE Magazijn 
         SET AantalAanwezig = COALESCE(AantalAanwezig, 0) + p_AantalProducteenheden
         WHERE ProductId = p_ProductId;
         
-        -- Update timestamp
         UPDATE ProductPerLeverancier 
         SET DatumGewijzigd = NOW(6)
         WHERE ProductId = p_ProductId AND LeverancierId = p_LeverancierId;
@@ -84,7 +75,6 @@ BEGIN
 END$$
 DELIMITER ;
 
--- SP 4: Get count of products per leverancier (for checking if empty)
 DELIMITER $$
 CREATE PROCEDURE sp_GetProductCountByLeverancier(IN p_LeverancierId INT, OUT p_Count INT)
 BEGIN
@@ -95,7 +85,6 @@ BEGIN
 END$$
 DELIMITER ;
 
--- SP 5: Get leverancier details
 DELIMITER $$
 CREATE PROCEDURE sp_GetLeverancierById(IN p_LeverancierId INT)
 BEGIN
@@ -106,7 +95,6 @@ BEGIN
 END$$
 DELIMITER ;
 
--- SP 6: Update product status (set IsActief)
 DELIMITER $$
 CREATE PROCEDURE sp_UpdateProductStatus(
     IN p_ProductId INT,
